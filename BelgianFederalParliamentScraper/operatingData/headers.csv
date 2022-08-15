@@ -1,0 +1,49 @@
+regex,name,type
+Questions,questions,header
+Vragen,questions,header
+Interpellation,interpellations,header
+Interpellatie,interpellations,header
+Motions,motions,subheader
+Moties,motions,subheader
+Wetsontwerpen en voorstellen,legislation,header
+Projets de loi et propositions,legislation,header
+Projets et propositions de loi,legislation,header
+Wetsontwerpen en \–voorstellen,legislation,header
+Projet de loi,legislation,header
+Wetsontwerp,legislation,header
+Propositions et projet de loi \(continuation\),legislation,header
+Voorstellen en wetsontwerp \(voortzetting\),legislation,header
+Projets de loi et propositions de loi,legislation,header
+Wetsontwerpen en wetsvoorstellen,legislation,header
+Projet et propositions de loi,legislation,header
+Wetsontwerp en \-voorstellen,legislation,header
+Projets et proposition de loi,legislation,header
+Wetsontwerpen en -voorstel,legislation,header
+Projet de loi et propositions,legislation,header
+Wetsontwerp en voorstellen,legislation,header
+Propositions de loi,legislation,header
+Wetsvoorstellen,legislation,header
+Propositions,legislation,header
+Voorstellen,legislation,header
+Projet et proposition de loi,legislation,header
+Wetsontwerp en -voorstel,legislation,header
+Wetsontwerpen,legislation,header
+Projets de loi,legislation,header
+Ontwerpen en voorstellen,legislation,header
+Projets et propositions,legislation,header
+Wetsontwerpen en voorstel,legislation,header
+Projets de loi et proposition,legislation,header
+verklaring van de regering,govermentDeclaration,header
+la déclaration du gouvernement,govermentDeclaration,header
+Urgentieverzoek,urgencyRequest,header
+Demande d'urgence,urgencyRequest,header
+Budgets,budgets,header
+Begrotingen,budgets,header
+Ordre du jour,agenda,header
+Agenda,agenda,header
+Votes nominatifs,votingRecord,header
+Naamstemmingen,votingRecord,header
+Scrutins,secretVoting,header
+Geheime stemmingen,secretVoting,header
+Scrutin,secretVoting,header
+Geheime stemming,secretVoting,header
