@@ -185,7 +185,8 @@ class parliamentScraper(scrapy.Spider, parentClass):
         self.save(legislature=temp[-2], orgName=org, documentNumber=documentNumber)
 
     def save(self, legislature: int, orgName: str, documentNumber: int):
-
+        if not os.path.isdir(self.path):
+            os.mkdir(self.path)
         if (not os.path.exists(f"{self.path}/{legislature}")) or (
             not os.path.isdir(f"{self.path}/{legislature}")
         ):
