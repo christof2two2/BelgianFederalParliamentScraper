@@ -96,7 +96,8 @@ class legislationScraper(chapterScraper):
 
                 debate = self.scrapeDebate(elements[start:stop])
                 debate["blockid"] = blockid
-                self.debates = self.debates.append(debate)
+                self.debates = pd.concat([self.debates,debate])
+                #self.debates = self.debates.append(debate)
 
             # if len(self.debates) == 0: #dont check this for law proposals since there can be no debate about a bill
             #    raise exceptions.EmptyDebateDataFrame()

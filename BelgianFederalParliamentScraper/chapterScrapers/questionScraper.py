@@ -82,19 +82,20 @@ class questionScraper(chapterScraper):
         # collects all questions in section
         # in: start and stopindex of section
         # out: pandas dataframe where every row is question , row contains: index,content and language
-        questions = pd.DataFrame(columns=["index", "content", "language", "code"])
+        #questions = pd.DataFrame(columns=["index", "content", "language", "code"])
+        questions  = list()
         for i in range(0, len(elements)):
             element = elements[i]
             if self.isQuestion(element):
-                questions = questions.append(
+                questions.append(
                     {
                         "index": i,
                         "content": self.getInnerText(element),
                         "language": self.getLanguageFromElement(element),
                         "code": self.getCode(self.getInnerText(element)),
-                    },
-                    ignore_index=True,
+                    }
                 )
+        questions = pd.DataFrame.from_dict(questions)
         return questions
 
     def parse(self, elements) -> None:
@@ -123,7 +124,8 @@ class questionScraper(chapterScraper):
                     elements[startStopIndexes[blockid][0] : stopIndex]
                 )
                 debate["blockid"] = blockid
-                self.answers = self.answers.append(debate)
+                self.answers = pd.concat([self.answers,debate])
+                #self.answers = self.answers.append(debate)
 
             # clean up raw text and extract data
             if len(self.answers) == 0:
