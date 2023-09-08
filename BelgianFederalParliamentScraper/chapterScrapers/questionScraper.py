@@ -28,15 +28,12 @@ class questionScraper(chapterScraper):
         # determines if element is a question
         # in: element
         # out: boolean
-        isTitle = bool(
-            re.search("titre|titel", self.getClass(element), flags=re.IGNORECASE)
-        )
         codeBased = bool(re.search(self.codeRegex, self.getInnerText(element)))
-        return codeBased and isTitle
+        return codeBased and self.isTitle(element)
 
     def findEndOfBlock(self, elements) -> int:
         for i in range(0, len(elements)):
-            if self.isTitle(self.getClass(elements[i])):
+            if self.isTitle(elements[i]):
                 return i
         return len(elements)
 
@@ -60,6 +57,7 @@ class questionScraper(chapterScraper):
 
     def extractInterviewee(self, row) -> str:
         text = re.sub(self.cleanupRegex, "", row["content"])
+        print(text)
         if row["language"].lower() == "nl":
             if text.find("aan") != -1:
                 text = text.split("aan")[1]
@@ -135,7 +133,6 @@ class questionScraper(chapterScraper):
 
             if len(self.questions) == 0:
                 raise exceptions.EmptyTopicsDataFrame()
-
             self.questions["asker"] = self.questions.apply(
                 self.extractQuestionAsker, axis=1
             )
@@ -149,6 +146,8 @@ class questionScraper(chapterScraper):
                 "code",
                 "language",
             )
+
+            self.answers = self.answers[["blockid","speechIndex","segmentIndex",'speaker',"party","language","content"]]
             self.status["error"] = False
         except Exception as e:
             trace = traceback.format_exc()

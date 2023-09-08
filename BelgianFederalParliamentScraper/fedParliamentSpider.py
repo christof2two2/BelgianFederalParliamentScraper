@@ -84,6 +84,8 @@ class parliamentScraper(scrapy.Spider, parentClass):
             )
         ):
             return True
+        if self.getTag(element) in ["h1"]:
+            return True
         return False
 
     def getHeaderType(self, element) -> str:
@@ -162,6 +164,7 @@ class parliamentScraper(scrapy.Spider, parentClass):
                 inp = self.makeInputForChapterScraper(
                     self.totalElements, self.chapters[cs]
                 )
+  
                 self.chapterScrapers[cs].parse(inp)
                 if self.chapterScrapers[cs].failed():
                     self.status["error"] = True
@@ -181,7 +184,6 @@ class parliamentScraper(scrapy.Spider, parentClass):
         self.status["documentNumber"] = documentNumber
 
         self.makeBlockIdsGlobal()
-
         self.save(legislature=temp[-2], orgName=org, documentNumber=documentNumber)
 
     def save(self, legislature: int, orgName: str, documentNumber: int):

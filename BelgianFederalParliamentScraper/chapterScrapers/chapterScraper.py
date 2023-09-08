@@ -7,7 +7,12 @@ from ..tools import exceptions
 class chapterScraper(parentClass):
     def __init__(self):
         pass
-
+    def isSpeakerPresident(self, text: str) -> bool:
+        return bool(
+            re.search(
+                "voorzitter|président|présidente|voorzitster|president|presidente",text, flags=re.IGNORECASE
+            )
+        )
     def newSpeaker(self, element) -> bool:
         # determines if element is  the first line of a new speaker
         # in: text
@@ -17,13 +22,7 @@ class chapterScraper(parentClass):
             return True
         if len(element.css(".oraspr")) > 0:
             return True
-        if ":" in text[0:40] and bool(
-            re.search(
-                "voorzitter|president|président|voorzitster",
-                text[0:40],
-                flags=re.IGNORECASE,
-            )
-        ):
+        if ":" in text[0:40] and self.isSpeakerPresident(text[0:40]):
             return True
         return False
 
@@ -77,17 +76,14 @@ class chapterScraper(parentClass):
             text,
             flags=re.IGNORECASE,
         )
+        if self.isSpeakerPresident(text):
+            return "Speaker of Parliament"
         return text.strip()
-
-    def isTitle(self, className: str) -> bool:
-        return bool(re.search("titel|titre", className))
-
-    def isSpeakerPresident(self, text: str) -> bool:
-        return bool(
-            re.search(
-                "voorzitter|président|présidente|voorzitster", flags=re.IGNORECASE
-            )
-        )
+    def isTitle(self, element)-> bool:
+        className = self.getClass(element)
+        classBased =  bool(re.search("titel|titre", className, flags=re.IGNORECASE)) 
+        tagBased = self.getTag(element) in ["h1","h2"]
+        return tagBased or classBased
 
     def scrapeDebate(self, elements: list) -> pd.DataFrame:
         begin = 0

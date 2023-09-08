@@ -17,12 +17,12 @@ class legislationScraper(chapterScraper):
 
     def isProposal(self, element) -> bool:
         regex = bool(re.search(self.codeRegex, self.getInnerText(element)))
-        return regex and self.isTitle(self.getClass(element))
+        return regex and self.isTitle(element)
 
     def findStartArticleDiscussion(self, elements: list) -> int:
         for i in range(0, len(elements)):
             if (
-                self.isTitle(self.getClass(elements[i]))
+                self.isTitle(elements[i])
                 and bool(
                     re.search(
                         "Discussion des articles|Bespreking van de artikelen|artikel|article",
@@ -42,7 +42,7 @@ class legislationScraper(chapterScraper):
 
     def findStartGeneralDiscussion(self, elements: list) -> int:
         for i in range(0, len(elements)):
-            if self.isTitle(self.getClass(elements[i])) and bool(
+            if self.isTitle(elements[i]) and bool(
                 re.search(
                     "Discussion générale|Algemene bespreking|Algemene|générale",
                     self.getInnerText(elements[i]),
